@@ -1,0 +1,9 @@
+/.vs/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/cmake_install.cmake
+/CppProperties.json
+/VectorMath
+/msvc/
+CMakeSettings.json
