@@ -12,7 +12,6 @@ namespace cvm
 		class VectorBase
 		{
 		protected:
-			using tBase = VectorBase<tVector, tStorage>;
 			VECTOR m_vec;
 
 			VectorBase() = default;

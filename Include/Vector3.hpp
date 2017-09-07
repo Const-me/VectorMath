@@ -1,11 +1,11 @@
 #pragma once
 #include "StorageTypes.hpp"
-#include "impl/VectorBase.hpp"
+#include "impl/VectorBase3.hpp"
 
 namespace cvm
 {
 	class Vector3:
-		public impl::VectorBase<Vector3, FLOAT3>
+		public impl::VectorBase3<Vector3>
 	{
 	public:
 		Vector3() = default;
