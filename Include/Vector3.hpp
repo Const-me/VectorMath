@@ -1,14 +1,12 @@
 #pragma once
 #include "StorageTypes.hpp"
-#include "RegisterTypes.hpp"
-#include "impl/BasicMath.hpp"
+#include "impl/VectorBase.hpp"
 
 namespace cvm
 {
-	class Vector3
+	class Vector3:
+		public impl::VectorBase<Vector3>
 	{
-		VECTOR m_vec;
-
 	public:
 		Vector3() = default;
 		Vector3( const Vector3& that ) { m_vec = that.m_vec; }
@@ -33,23 +31,6 @@ namespace cvm
 			FLOAT3 res;
 			store( res );
 			return res;
-		}
-
-		Vector3 operator+( const Vector3& that ) const
-		{
-			return impl::vectorAdd( m_vec, that.m_vec );
-		}
-		void operator+=( const Vector3& that )
-		{
-			m_vec = impl::vectorAdd( m_vec, that.m_vec );
-		}
-		Vector3 operator-( const Vector3& that ) const
-		{
-			return impl::vectorSub( m_vec, that.m_vec );
-		}
-		void operator-=( const Vector3& that )
-		{
-			m_vec = impl::vectorSub( m_vec, that.m_vec );
 		}
 	};
 }
