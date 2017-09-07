@@ -6,4 +6,5 @@
 /CppProperties.json
 /VectorMath
 /msvc/
-CMakeSettings.json
+/CMakeSettings.json
+/compile/
