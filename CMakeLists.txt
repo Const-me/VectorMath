@@ -3,6 +3,13 @@ project(VectorMath)
 include_directories("Include")
 set(CMAKE_SUPPRESS_REGENERATION true)
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	add_compile_options( "-std=c++1z" )
+	add_compile_options( "-stdlib=libc++" )
+	add_compile_options( "-O3" )
+	add_compile_options( "-march=native" )
+endif()
+
 source_group( "Main" FILES "VectorMath.cpp" )
 
 FILE( GLOB CVM_INC LIST_DIRECTORIES false "Include/*" )
