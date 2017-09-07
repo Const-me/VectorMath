@@ -31,7 +31,7 @@ namespace cvm
 		{
 #if CVM_SSE
 			// https://stackoverflow.com/a/3528787/126995
-			return _mm_xor_ps( a, _mm_set1_ps( -0.f ) )
+			return _mm_xor_ps( a, _mm_set1_ps( -0.f ) );
 #elif CVM_NEON
 			return vneg_f32( a );
 #else
