@@ -3,12 +3,6 @@ project(VectorMath)
 include_directories("Include")
 set(CMAKE_SUPPRESS_REGENERATION true)
 
-if(MSVC)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/msvc)
-else(MSVC)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-endif(MSVC)
-
 source_group( "Main" FILES "VectorMath.cpp" )
 
 FILE( GLOB CVM_INC LIST_DIRECTORIES false "Include/*" )
