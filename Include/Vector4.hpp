@@ -18,5 +18,7 @@ namespace cvm
 		Vector4( VECTOR that ) : tBase( that ) {}
 
 		Vector4( float x, float y, float z, float w ) : tBase( FLOAT4{ x, y, z, w } ) { }
+
+		Vector4( float x, float y, float z ) : tBase( FLOAT4{ x, y, z, 0 } ) { }
 	};
 }

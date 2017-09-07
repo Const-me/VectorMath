@@ -122,6 +122,12 @@ namespace cvm
 			result = _mm_sqrt_ps( result );
 			return _mm_div_ps( a, result );
 		}
+
+		inline VECTOR VCALL divideByW( VECTOR a )
+		{
+			VECTOR wwww = permute<3, 3, 3, 3>( a );
+			return _mm_div_ps( a, wwww );
+		}
 #endif // CVM_SSE
 	}
 }
