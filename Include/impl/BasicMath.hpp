@@ -1,5 +1,6 @@
 #pragma once
 #include "../RegisterTypes.hpp"
+#include <stdint.h>
 
 namespace cvm
 {
@@ -72,7 +73,7 @@ namespace cvm
 		// Dot product of a.xyz and b.xyz, in all 4 components
 		inline VECTOR VCALL dot3( VECTOR a, VECTOR b )
 		{
-#if CVM_SSE >= 41
+#if __SSE4_1__
 			return _mm_dp_ps( a, b, 0x7F );
 #else
 			__m128 result = _mm_mul_ps( a, a );	// [xyzw]^2
@@ -85,7 +86,7 @@ namespace cvm
 
 			// Broadcast x component
 			return permute<0, 0, 0, 0>( result );
-#endif // CVM_SSE >= 41
+#endif // __SSE4_1__
 		}
 
 		// Divide by the length of a.xyz. w component is divided as well.
@@ -98,7 +99,7 @@ namespace cvm
 
 		inline VECTOR VCALL dot4( VECTOR a, VECTOR b )
 		{
-#if CVM_SSE >= 41
+#if __SSE4_1__
 			return _mm_dp_ps( a, b, 0xFF );
 #else
 			__m128 result = _mm_mul_ps( a, a );	// [xyzw]^2
@@ -113,7 +114,7 @@ namespace cvm
 
 			// Broadcast x component
 			return permute<0, 0, 0, 0>( result );
-#endif // CVM_SSE >= 41
+#endif // __SSE4_1__
 		}
 
 		inline VECTOR VCALL normalize4( VECTOR a )

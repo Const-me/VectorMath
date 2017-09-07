@@ -15,7 +15,7 @@ namespace cvm
 		{
 			return _mm_cvtss_f32( a );
 		}
-#if CVM_SSE >= 41
+#if __SSE4_1__
 		template<int n>
 		inline float VCALL extract( VECTOR a )
 		{
