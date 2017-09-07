@@ -26,6 +26,19 @@ namespace cvm
 			float getX() const { return extract<0>( m_vec ); }
 			float getY() const { return extract<1>( m_vec ); }
 			float getZ() const { return extract<2>( m_vec ); }
+
+			tVector normalize() const
+			{
+				return normalize3( m_vec );
+			}
+			VECTOR VCALL lengthSquared() const
+			{
+				return dot3( m_vec, m_vec );
+			}
+			VECTOR VCALL length() const
+			{
+				return _mm_sqrt_ps( lengthSquared() );
+			}
 		};
 	}
 }

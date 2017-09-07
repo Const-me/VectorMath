@@ -7,7 +7,7 @@ int main( int args, char* argv[] )
 {
 	Vector3 a{ 1, 2, 3 };
 	Vector3 b{ 4, 5, 6 };
-	auto c = ( a + b ).store();
-	printf( "%f, %f, %f\n", c.x, c.y, c.z );
+	Vector3 c = a + b;
+	printf( "%f, %f, %f\n", c.getX(), c.getY(), c.getZ() );
 	return 0;
 }
