@@ -4,7 +4,8 @@
 
 using namespace cvm;
 
-void print( const char* lbl, const Vector3& v )
+template<class T>
+void print( const char* lbl, const impl::VectorBase3<T>& v )
 {
 	printf( "%s = { %f, %f, %f }\n", lbl, v.getX(), v.getY(), v.getZ() );
 }

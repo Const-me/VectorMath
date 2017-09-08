@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.hpp"
 #include "Vector4.hpp"
+#include "Normal.hpp"
 
 namespace cvm
 {
@@ -9,7 +10,7 @@ namespace cvm
 		// e41, e42, e43 components of the 4D bi-vector
 		Vector3 m_tangent;
 		// e23, e31, e12 components of the 4D bi-vector
-		Vector3 m_moment;
+		Normal m_moment;
 
 	public:
 		Line() = default;
@@ -27,6 +28,6 @@ namespace cvm
 				Vector3{ impl::divideByW( VECTOR( b ) ) } ) { }
 
 		const Vector3& tangent() const { return m_tangent; }
-		const Vector3& moment() const { return m_moment; }
+		const Normal& moment() const { return m_moment; }
 	};
 }
