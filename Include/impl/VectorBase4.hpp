@@ -8,7 +8,8 @@ namespace cvm
 	{
 		// Stuff that's common across all 3D vectors
 		template<class tVector>
-		class VectorBase4: public VectorBase<tVector, FLOAT4>
+		class VectorBase4:
+			public VectorBase<tVector, FLOAT4>
 		{
 		protected:
 			typedef VectorBase4<tVector> tBase;
@@ -28,10 +29,10 @@ namespace cvm
 			float getZ() const { return extract<2>( m_vec ); }
 			float getW() const { return extract<3>( m_vec ); }
 
-			void setX( float a ) { return m_vec = insert<0>( m_vec, a ); }
-			void setY( float a ) { return m_vec = insert<1>( m_vec, a ); }
-			void setZ( float a ) { return m_vec = insert<2>( m_vec, a ); }
-			void setW( float a ) { return m_vec = insert<3>( m_vec, a ); }
+			void setX( float a ) { m_vec = insert<0>( m_vec, a ); }
+			void setY( float a ) { m_vec = insert<1>( m_vec, a ); }
+			void setZ( float a ) { m_vec = insert<2>( m_vec, a ); }
+			void setW( float a ) { m_vec = insert<3>( m_vec, a ); }
 
 			tVector normalize3() const
 			{

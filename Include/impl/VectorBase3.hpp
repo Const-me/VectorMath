@@ -27,9 +27,9 @@ namespace cvm
 			float getY() const { return extract<1>( m_vec ); }
 			float getZ() const { return extract<2>( m_vec ); }
 
-			void setX( float a ) { return m_vec = insert<0>( m_vec, a ); }
-			void setY( float a ) { return m_vec = insert<1>( m_vec, a ); }
-			void setZ( float a ) { return m_vec = insert<2>( m_vec, a ); }
+			void setX( float a ) { m_vec = insert<0>( m_vec, a ); }
+			void setY( float a ) { m_vec = insert<1>( m_vec, a ); }
+			void setZ( float a ) { m_vec = insert<2>( m_vec, a ); }
 
 			tVector normalize() const
 			{
