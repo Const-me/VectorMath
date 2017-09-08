@@ -59,6 +59,8 @@ namespace cvm
 				store( res );
 				return res;
 			}
+
+			explicit operator VECTOR() const { return m_vec; }
 		};
 	}
 }

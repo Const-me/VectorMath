@@ -4,6 +4,8 @@
 
 namespace cvm
 {
+	class Vector3;
+
 	class Vector4:
 		public impl::VectorBase4<Vector4>
 	{
@@ -20,5 +22,7 @@ namespace cvm
 		Vector4( float x, float y, float z, float w ) : tBase( FLOAT4{ x, y, z, w } ) { }
 
 		Vector4( float x, float y, float z ) : tBase( FLOAT4{ x, y, z, 0 } ) { }
+
+		inline Vector4( const Vector3& that );
 	};
 }

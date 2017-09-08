@@ -1,7 +1,7 @@
 #pragma once
 #include "Config.h"
 
-#if CVM_SSE > 20
+#if CVM_SSE
 #include <xmmintrin.h>
 
 namespace cvm

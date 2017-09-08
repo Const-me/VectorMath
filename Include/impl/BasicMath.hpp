@@ -53,11 +53,16 @@ namespace cvm
 		template<int imm>
 		inline VECTOR VCALL permute( VECTOR a )
 		{
+			static_assert( imm >= 0 && imm < 256, "Argument out of range" );
 			return _mm_shuffle_ps( a, a, imm );
 		}
 		template<int i1, int i2, int i3, int i4>
 		inline VECTOR VCALL permute( VECTOR a )
 		{
+			static_assert( i1 >= 0 && i1 < 4, "Index out of range" );
+			static_assert( i2 >= 0 && i2 < 4, "Index out of range" );
+			static_assert( i3 >= 0 && i3 < 4, "Index out of range" );
+			static_assert( i4 >= 0 && i4 < 4, "Index out of range" );
 			return permute<_MM_SHUFFLE( i1, i2, i3, i4 )>( a );
 		}
 
