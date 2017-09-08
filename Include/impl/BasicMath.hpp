@@ -61,6 +61,7 @@ namespace cvm
 			return permute<_MM_SHUFFLE( i1, i2, i3, i4 )>( a );
 		}
 
+		// 3D cross-product. The result's W component will be garbage.
 		inline VECTOR VCALL cross3( VECTOR a, VECTOR b )
 		{
 			// http://threadlocalmutex.com/?p=8
@@ -70,7 +71,7 @@ namespace cvm
 			return permute<3, 0, 2, 1>( c );
 		}
 
-		// Dot product of a.xyz and b.xyz, in all 4 components
+		// Dot product of a.xyz and b.xyz, in all 4 components of the result
 		inline VECTOR VCALL dot3( VECTOR a, VECTOR b )
 		{
 #if __SSE4_1__
@@ -89,7 +90,7 @@ namespace cvm
 #endif // __SSE4_1__
 		}
 
-		// Divide by the length of a.xyz. w component is divided as well.
+		// Divide the vector by the length of a.xyz; w component is divided as well
 		inline VECTOR VCALL normalize3( VECTOR a )
 		{
 			__m128 result = dot3( a, a );
@@ -97,6 +98,7 @@ namespace cvm
 			return _mm_div_ps( a, result );
 		}
 
+		// Dot product of a and b, in all 4 components of the result.
 		inline VECTOR VCALL dot4( VECTOR a, VECTOR b )
 		{
 #if __SSE4_1__
@@ -117,6 +119,7 @@ namespace cvm
 #endif // __SSE4_1__
 		}
 
+		// Normalize a 4D vector
 		inline VECTOR VCALL normalize4( VECTOR a )
 		{
 			__m128 result = dot4( a, a );
@@ -124,6 +127,7 @@ namespace cvm
 			return _mm_div_ps( a, result );
 		}
 
+		// Project a 4D vector onto W=1.0 space
 		inline VECTOR VCALL divideByW( VECTOR a )
 		{
 			VECTOR wwww = permute<3, 3, 3, 3>( a );
