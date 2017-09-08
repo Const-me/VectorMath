@@ -27,6 +27,16 @@ namespace cvm
 			Line( Vector3{ impl::divideByW( VECTOR( a ) ) },
 				Vector3{ impl::divideByW( VECTOR( b ) ) } ) { }
 
+		// Load
+		Line( const FLOAT3x2& line ) :
+			m_tangent( line.a ), m_moment( line.b ) { }
+		// Store
+		void store( FLOAT3x2& line ) const
+		{
+			m_tangent.store( line.a );
+			m_moment.store( line.b );
+		}
+
 		const Vector3& tangent() const { return m_tangent; }
 		const Normal& moment() const { return m_moment; }
 	};
