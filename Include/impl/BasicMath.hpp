@@ -6,6 +6,11 @@ namespace cvm
 {
 	namespace impl
 	{
+#if CVM_SSE
+		// The highest (=sign) bits of all 4 components are set, rest are 0. The constant is used for faster negate/abs operations on x86, bitwise operations are very fast
+		extern const VECTOR s_signBits;
+#endif
+
 		inline VECTOR VCALL vectorAdd( VECTOR a, VECTOR b )
 		{
 #if CVM_SSE
@@ -30,9 +35,9 @@ namespace cvm
 		{
 #if CVM_SSE
 			// https://stackoverflow.com/a/3528787/126995
-			return _mm_xor_ps( a, _mm_set1_ps( -0.0f ) );
+			return _mm_xor_ps( a, s_signBits );
 #elif CVM_NEON
-			return vneg_f32( a );
+			return vnegq_f32( a );
 #else
 			static_assert( false, "Unknown target" );
 #endif
@@ -139,5 +144,16 @@ namespace cvm
 			return _mm_div_ps( a, wwww );
 		}
 #endif // CVM_SSE
+
+		inline VECTOR VCALL abs4( VECTOR a )
+		{
+#if CVM_SSE
+			return _mm_andnot_ps( a, s_signBits );
+#elif CVM_NEON
+			return vabsq_f32( a );
+#else
+			static_assert( false, "Unknown target" );
+#endif
+		}
 	}
 }
