@@ -148,7 +148,7 @@ namespace cvm
 		inline VECTOR VCALL abs4( VECTOR a )
 		{
 #if CVM_SSE
-			return _mm_andnot_ps( a, s_signBits );
+			return _mm_andnot_ps( s_signBits, a );
 #elif CVM_NEON
 			return vabsq_f32( a );
 #else
