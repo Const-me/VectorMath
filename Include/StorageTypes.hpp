@@ -2,7 +2,17 @@
 
 namespace cvm
 {
-	// A structure to hold a 3D vector
+	// A structure to hold a 2D vector in RAM
+	struct FLOAT2
+	{
+		float x;
+		float y;
+		FLOAT2() = default;
+		FLOAT2( float _x, float _y ) : x( _x ), y( _y ) {}
+		FLOAT2& operator= ( const FLOAT2& Float3 ) { x = Float3.x; y = Float3.y; return *this; }
+	};
+
+	// A structure to hold a 3D vector in RAM
 	struct FLOAT3
 	{
 		float x;
@@ -13,7 +23,7 @@ namespace cvm
 		FLOAT3& operator= ( const FLOAT3& Float3 ) { x = Float3.x; y = Float3.y; z = Float3.z; return *this; }
 	};
 
-	// A structure to hold a 4D vector
+	// A structure to hold a 4D vector in RAM
 	struct FLOAT4
 	{
 		float x;
@@ -27,7 +37,7 @@ namespace cvm
 		FLOAT4& operator= ( const FLOAT4& Float4 ) { x = Float4.x; y = Float4.y; z = Float4.z; w = Float4.w; return *this; }
 	};
 
-	// A structure to hold a pair of 3D vector
+	// A structure to hold a pair of 3D vector in RAM
 	struct FLOAT3x2
 	{
 		FLOAT3 a, b;

@@ -1,5 +1,6 @@
 #pragma once
 #include "../RegisterTypes.hpp"
+#include "Permute.hpp"
 #include <stdint.h>
 
 namespace cvm
@@ -10,6 +11,16 @@ namespace cvm
 		// The highest (=sign) bits of all 4 components are set, rest are 0. The constant is used for faster negate/abs operations on x86, bitwise operations are very fast
 		extern const VECTOR s_signBits;
 #endif
+		inline VECTOR VCALL vectorZero()
+		{
+#if CVM_SSE
+			return _mm_setzero_ps();
+#elif CVM_NEON
+			return vdupq_n_f32( 0 );
+#else
+			static_assert( false, "Unknown target" );
+#endif
+		}
 
 		inline VECTOR VCALL vectorAdd( VECTOR a, VECTOR b )
 		{
@@ -55,22 +66,6 @@ namespace cvm
 		}
 
 #ifdef CVM_SSE
-		template<int imm>
-		inline VECTOR VCALL permute( VECTOR a )
-		{
-			static_assert( imm >= 0 && imm < 256, "Argument out of range" );
-			return _mm_shuffle_ps( a, a, imm );
-		}
-		template<int i1, int i2, int i3, int i4>
-		inline VECTOR VCALL permute( VECTOR a )
-		{
-			static_assert( i1 >= 0 && i1 < 4, "Index out of range" );
-			static_assert( i2 >= 0 && i2 < 4, "Index out of range" );
-			static_assert( i3 >= 0 && i3 < 4, "Index out of range" );
-			static_assert( i4 >= 0 && i4 < 4, "Index out of range" );
-			return permute<_MM_SHUFFLE( i1, i2, i3, i4 )>( a );
-		}
-
 		// 3D cross-product. The result's W component will be garbage.
 		inline VECTOR VCALL cross3( VECTOR a, VECTOR b )
 		{
@@ -143,7 +138,43 @@ namespace cvm
 			VECTOR wwww = permute<3, 3, 3, 3>( a );
 			return _mm_div_ps( a, wwww );
 		}
-#endif // CVM_SSE
+#elif CVM_NEON
+		// https://pyra-handheld.com/boards/threads/fast-neon-3-term-cross-product.52091/
+		inline __attribute__( ( always_inline ) ) void cross3_neon_vld3_vst3_asm_4x( float const* v1, float const* v2, float* result )
+		{
+			unsigned int const offset = 16; // 128-bit vectors
+
+			asm volatile(
+				"vld3.f32 {d0[0], d2[0], d4[0]}, [%[v1]], %[offset]         \n\t"
+				"vld3.f32 {d0[1], d2[1], d4[1]}, [%[v1]], %[offset]         \n\t"
+				"vld3.f32 {d1[0], d3[0], d5[0]}, [%[v1]], %[offset]         \n\t"
+				"vld3.f32 {d1[1], d3[1], d5[1]}, [%[v1]], %[offset]         \n\t"
+				"vld3.f32 {d16[0], d18[0], d20[0]}, [%[v2]], %[offset]      \n\t"
+				"vld3.f32 {d16[1], d18[1], d20[1]}, [%[v2]], %[offset]      \n\t"
+				"vld3.f32 {d17[0], d19[0], d21[0]}, [%[v2]], %[offset]      \n\t"
+				"vld3.f32 {d17[1], d19[1], d21[1]}, [%[v2]], %[offset]      \n\t"
+				"vmul.f32 q12, q1, q10                                      \n\t"
+				"vmul.f32 q13, q2, q8                                       \n\t"
+				"vmul.f32 q14, q0, q9                                       \n\t"
+				"vmls.f32 q12, q2, q9                                       \n\t"
+				"vmls.f32 q13, q0, q10                                      \n\t"
+				"vmls.f32 q14, q1, q8                                       \n\t"
+				"vst3.f32 {d24[0], d26[0], d28[0]}, [%[result]], %[offset]  \n\t"
+				"vst3.f32 {d24[1], d26[1], d28[1]}, [%[result]], %[offset]  \n\t"
+				"vst3.f32 {d25[0], d27[0], d29[0]}, [%[result]], %[offset]  \n\t"
+				"vst3.f32 {d25[1], d27[1], d29[1]}, [%[result]], %[offset]"
+				: [v1] "=r" ( v1 ), [ v2 ] "=r" ( v2 ), [ result ] "=r" ( result )
+				: "0" ( v1 ), "1" ( v2 ), "2" ( result ), [ offset ] "r" ( offset )
+				: "memory", "q0", "q1", "q2", "q8", "q9", "q10", "q12", "q13", "q14"
+				);
+		}
+		inline VECTOR VCALL cross3( VECTOR a, VECTOR b )
+		{
+			VECTOR res;
+			cross3_neon_vld3_vst3_asm_4x( &a, &b, &res );
+			return res;
+		}
+#endif
 
 		inline VECTOR VCALL abs4( VECTOR a )
 		{

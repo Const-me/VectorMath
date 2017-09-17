@@ -27,6 +27,11 @@ namespace cvm
 
 		public:
 			// Basic math
+			static tVector zero()
+			{
+				return tVector{ _mm_setzero_ps() };
+			}
+
 			tVector operator+( const tVector& that ) const
 			{
 				return vectorAdd( m_vec, that.m_vec );
@@ -47,6 +52,15 @@ namespace cvm
 			{
 				return vectorNeg( m_vec );
 			}
+			tVector operator*( const tVector& that ) const
+			{
+				return vectorMul( m_vec, that );
+			}
+			void operator*=( const tVector& that )
+			{
+				m_vec = vectorMul( m_vec, that );
+			}
+
 
 			// Store
 			void VCALL store( tStorage& dest ) const
@@ -60,7 +74,7 @@ namespace cvm
 				return res;
 			}
 
-			explicit operator VECTOR() const { return m_vec; }
+			operator VECTOR() const { return m_vec; }
 		};
 	}
 }

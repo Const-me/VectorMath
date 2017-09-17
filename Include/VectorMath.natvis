@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="__m128">
+		<DisplayString>[ { m128_f32[0] }, { m128_f32[1] }, { m128_f32[2] }, { m128_f32[3] } ]</DisplayString>
+	</Type>
+	<Type Name="cvm::impl::VectorBase&lt;*, cvm::FLOAT2&gt;">
+		<DisplayString>[ { m_vec.m128_f32[0] }, { m_vec.m128_f32[1] } ]</DisplayString>
+	</Type>
+	<Type Name="cvm::impl::VectorBase&lt;*, cvm::FLOAT3&gt;">
+		<DisplayString>[ { m_vec.m128_f32[0] }, { m_vec.m128_f32[1] }, { m_vec.m128_f32[2] } ]</DisplayString>
+	</Type>
+	<Type Name="cvm::impl::VectorBase&lt;*, cvm::FLOAT4&gt;">
+		<DisplayString>[ { m_vec.m128_f32[0] }, { m_vec.m128_f32[1] }, { m_vec.m128_f32[2] }, { m_vec.m128_f32[3] } ]</DisplayString>
+	</Type>
+</AutoVisualizer>

@@ -19,7 +19,7 @@ namespace cvm
 
 		Vector3( VECTOR that ) : tBase( that ) {}
 
-		Vector3( float x, float y, float z ) : tBase( FLOAT3{ x, y, z } ) { }
+		Vector3( float x, float y, float z ) : tBase( impl::set( x, y, z, 0 ) ) { }
 
 		inline Vector3( const Vector4& that );
 	};

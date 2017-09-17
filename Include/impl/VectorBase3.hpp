@@ -11,7 +11,7 @@ namespace cvm
 		class VectorBase3: public VectorBase<tVector, FLOAT3>
 		{
 		protected:
-			typedef VectorBase3<tVector> tBase;
+			using tBase = VectorBase3<tVector>;
 
 		public:
 			VectorBase3() = default;

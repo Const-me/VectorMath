@@ -14,14 +14,13 @@ namespace cvm
 
 		Vector4( const Vector4& that ) : tBase( that ) {}
 
-		// Load float3 from RAM, set W to 0
 		Vector4( const FLOAT4& that ) : tBase( that ) {}
 
 		Vector4( VECTOR that ) : tBase( that ) {}
 
-		Vector4( float x, float y, float z, float w ) : tBase( FLOAT4{ x, y, z, w } ) { }
+		Vector4( float x, float y, float z, float w ) : tBase( impl::set( x, y, z, w ) ) { }
 
-		Vector4( float x, float y, float z ) : tBase( FLOAT4{ x, y, z, 0 } ) { }
+		Vector4( float x, float y, float z ) : tBase( impl::set( x, y, z, 0 ) ) { }
 
 		inline Vector4( const Vector3& that );
 	};
