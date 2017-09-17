@@ -12,6 +12,7 @@ namespace cvm
 		{
 		protected:
 			using tBase = VectorBase3<tVector>;
+			using VectorBase<tVector, FLOAT3>::m_vec;
 
 		public:
 			VectorBase3() = default;

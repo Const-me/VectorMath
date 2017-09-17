@@ -12,6 +12,7 @@ namespace cvm
 			public VectorBase<tVector, FLOAT4>
 		{
 		protected:
+			using VectorBase<tVector, FLOAT4>::m_vec;
 			typedef VectorBase4<tVector> tBase;
 
 		public:

@@ -28,8 +28,8 @@ void test1()
 template<class tVec>
 Vector2 baricentric( const std::array<tVec, 3>& tri, Vector2 v2 )
 {
-	const Vector2 a = tri[ 1 ] - tri[ 0 ];
-	const Vector2 b = tri[ 2 ] - tri[ 0 ];
+	const Vector2 a = VECTOR( tri[ 1 ] - tri[ 0 ] );
+	const Vector2 b = VECTOR( tri[ 2 ] - tri[ 0 ] );
 	Matrix2 mat = Matrix2::fromColumns( a, b );
 	// Matrix2 mat = Matrix2::fromRows( a, b );
 	mat = mat.invert();
@@ -42,8 +42,12 @@ template<class tVec>
 tVec fromBaricentric( const std::array<tVec, 3>& tri, Vector2 bc )
 {
 	return tri[ 0 ] +
-		( tri[ 1 ] - tri[ 0 ] ) * impl::permute<0, 0, 0, 0>( bc ) +
-		( tri[ 2 ] - tri[ 0 ] ) * impl::permute<1, 1, 1, 1>( bc );
+		( tri[ 1 ] - tri[ 0 ] ) * tVec {
+		impl::permute<0, 0, 0, 0>( bc )
+	} +
+		( tri[ 2 ] - tri[ 0 ] ) * tVec {
+		impl::permute<1, 1, 1, 1>( bc )
+	};
 };
 
 void test2()

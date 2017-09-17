@@ -2,6 +2,9 @@
 #include "../RegisterTypes.hpp"
 #include "Permute.hpp"
 #include <stdint.h>
+#if __SSE4_0__ || __SSE4_1__
+#include <smmintrin.h>
+#endif
 
 namespace cvm
 {

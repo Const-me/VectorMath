@@ -31,7 +31,7 @@ namespace cvm
 		{
 			return fromRows( c1, c2 ).transpose();
 		}
-		Matrix2& invert() const
+		Matrix2 invert() const
 		{
 			// https://www.mathsisfun.com/algebra/matrix-inverse.html
 			// However storage order is transposed, so this == [a, c, b, d]

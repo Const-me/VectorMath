@@ -34,19 +34,19 @@ namespace cvm
 
 			tVector operator+( const tVector& that ) const
 			{
-				return vectorAdd( m_vec, that.m_vec );
+				return vectorAdd( m_vec, that );
 			}
 			void operator+=( const tVector& that )
 			{
-				m_vec = vectorAdd( m_vec, that.m_vec );
+				m_vec = vectorAdd( m_vec, that );
 			}
 			tVector operator-( const tVector& that ) const
 			{
-				return vectorSub( m_vec, that.m_vec );
+				return vectorSub( m_vec, that );
 			}
 			void operator-=( const tVector& that )
 			{
-				m_vec = vectorSub( m_vec, that.m_vec );
+				m_vec = vectorSub( m_vec, that );
 			}
 			tVector operator-() const
 			{
